@@ -1,0 +1,113 @@
+﻿-- 1. Create a table “emp” with the following fields:
+-- EMPNO, ENAME, JOB, HIREDATE, SAL, COMM, DEPTNO, MGR
+CREATE TABLE emp (
+    EMPNO INT NOT NULL,
+    ENAME VARCHAR(50),
+    JOB VARCHAR(50),
+    MGR INT,
+    HIREDATE DATE,
+    SAL INT,
+    COMM INT,
+    DEPTNO INT,
+    PRIMARY KEY (EMPNO)
+);
+
+
+-- 2. Create a table “dept” with the following fields:
+-- DEPTNO, DNAME, LOCATION
+CREATE TABLE dept (
+    DEPTNO INT NOT NULL,
+    DNAME VARCHAR(50),
+    LOCATION VARCHAR(50),
+    PRIMARY KEY (DEPTNO)
+);
+
+
+-- 3. Create a table “stud_master” with the following fields:
+-- REG_NO, S_NAME, BRANCH
+CREATE TABLE stud_master (
+    REG_NO INT NOT NULL,
+    S_NAME VARCHAR(50),
+    BRANCH VARCHAR(50),
+    PRIMARY KEY (REG_NO)
+);
+
+
+-- 4. Create a table “stud_detail” with the following fields:
+-- REG_NO, COURSE_CODE, COURSE_NAME, MARKS, SEM
+CREATE TABLE stud_detail (
+    REG_NO INT NOT NULL,
+    COURSE_CODE VARCHAR(20),
+    COURSE_NAME VARCHAR(100),
+    MARKS INT,
+    SEM VARCHAR(10),
+    PRIMARY KEY (REG_NO, COURSE_CODE)
+);
+
+
+-- 1. Insert records into emp table.
+INSERT INTO emp (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO) VALUES
+(7369, 'KHAN', 'CLERK', 7902, '1980-12-17', 800, NULL, 20),
+(7499, 'ALI', 'SALESMAN', 7698, '1981-02-20', 1600, 300, 30),
+(7521, 'VERMA', 'SALESMAN', 7698, '1981-02-22', 1250, 500, 30),
+(7566, 'PATEL', 'MANAGER', 7839, '1981-04-02', 2975, NULL, 20),
+(7698, 'SHARMA', 'MANAGER', 7839, '1981-05-01', 2850, NULL, 30),
+(7782, 'SINGH', 'MANAGER', 7839, '1981-06-09', 2450, NULL, 10);
+
+
+-- 2. Insert records into dept table.
+INSERT INTO dept (DEPTNO, DNAME, LOCATION) VALUES
+(10, 'ACCOUNTING', 'MUMBAI'),
+(20, 'RESEARCH', 'BANGALORE'),
+(30, 'SALES', 'DELHI'),
+(40, 'OPERATIONS', 'CHENNAI');
+
+
+-- 3. Insert records into stud_master table.
+INSERT INTO stud_master (REG_NO, S_NAME, BRANCH) VALUES
+(1, 'Aamir Khan', 'Computer Engineering'),
+(2, 'Ayesha Begum', 'Electrical Engineering'),
+(3, 'Rahul Verma', 'Mechanical Engineering'),
+(4, 'Sara Ali', 'Computer Engineering');
+
+
+-- 4. Insert records into stud_detail table.
+INSERT INTO stud_detail (REG_NO, COURSE_CODE, COURSE_NAME, MARKS, SEM) VALUES
+(1, 'CS101', 'Data Structures', 85, 'Sem1'),
+(2, 'EE101', 'Circuit Analysis', 90, 'Sem1'),
+(3, 'ME101', 'Thermodynamics', 78, 'Sem1'),
+(4, 'CS102', 'Algorithms', 88, 'Sem1');
+
+
+-- 5. Select all information from emp table.
+SELECT * FROM emp;
+
+
+-- 6. List all the employees who have salary between 1000 and 2000.
+SELECT * FROM emp
+WHERE SAL BETWEEN 1000 AND 2000;
+
+
+-- 7. List names and jobs of all clerks in department 20.
+SELECT ENAME, JOB FROM emp
+WHERE JOB = 'CLERK' AND DEPTNO = 20;
+
+
+-- 8. Display all the different job types.
+SELECT DISTINCT JOB FROM emp;
+
+
+-- 9. List department numbers and names in department name order.
+SELECT DEPTNO, DNAME FROM dept
+ORDER BY DNAME;
+
+
+-- 10. Select all information from stud_master table.
+SELECT * FROM stud_master;
+
+
+-- 11. Display Registration number and name of students whose department is “Computer Engineering”.
+SELECT stud_master.REG_NO, stud_master.S_NAME
+FROM stud_detail
+JOIN stud_master ON stud_detail.REG_NO = stud_master.REG_NO
+WHERE stud_master.BRANCH = 'Computer Engineering';
